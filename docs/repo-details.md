@@ -19,6 +19,8 @@ Opt-in nine-alignment decision tool, GSD-inspired skill metaprompting, Kordi plu
 
 **Original Kordi upstream contribution:** https://github.com/Kordi-AI/Kordi/pull/2596 (predecessor, not merged). Canonical repo tool PR: https://github.com/biobitworks/kordi-alignment/pull/1 (under review). Teammates independently own skill, plugin, and agent improvements; their future PRs are not inferred from existing prototype files.
 
+**Coordination:** [PR #7](https://github.com/biobitworks/kordi-alignment/pull/7), [issue #6](https://github.com/biobitworks/kordi-alignment/issues/6), and lane issues [#2](https://github.com/biobitworks/kordi-alignment/issues/2) / [#3](https://github.com/biobitworks/kordi-alignment/issues/3) / [#4](https://github.com/biobitworks/kordi-alignment/issues/4) / [#5](https://github.com/biobitworks/kordi-alignment/issues/5) are open. Named teammate task acceptance has not been verified. **Plugin advertised-schema parity is currently a reproduced gap (issue #3), not PASS.**
+
 **State as of 2026-11-16:** existing framework IMPLEMENTED; tool red-team EXECUTED with cross-machine receipts on PR branch; skill metaprompting **specification only**, actual skill model UAT NOT_TESTED; live Kordi cloud/agent and 403 resolution UNKNOWN.
 
 **License:** MIT for this repo. Independent alignment taxonomy concept; no copied third-party text or prompts. Review the [roadmap and Gantt](implementation-gantt.md) before setting release dates.

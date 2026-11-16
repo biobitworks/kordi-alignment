@@ -14,6 +14,17 @@
 | **Agent add-on** | [agents/alignment-reviewer.md](agents/alignment-reviewer.md) and [prompts/alignment-reviewer.md](prompts/alignment-reviewer.md) | Review alternatives and ask for human decisions | IMPLEMENTED as instructions, **not** a deployed autonomous agent |
 | **Facilitator** | [docs/facilitator-prompt.md](docs/facilitator-prompt.md) | Ask Kordi's group facilitator to coordinate reviews | PROPOSED message, NOT_SENT |
 
+### Team ownership and active review gates
+
+The [team coordination PR #7](https://github.com/biobitworks/kordi-alignment/pull/7) and [owner-mapping issue #6](https://github.com/biobitworks/kordi-alignment/issues/6) record these open **issue assignments**, not verified human acceptance:
+
+- **Tool contract:** [issue #2](https://github.com/biobitworks/kordi-alignment/issues/2), with implementation/red-team [PR #1](https://github.com/biobitworks/kordi-alignment/pull/1).
+- **Plugin advertised schema:** [issue #3](https://github.com/biobitworks/kordi-alignment/issues/3), **OPEN**. Its field constraints currently differ from what the scorer rejects; do not claim end-to-end schema parity.
+- **Skill adversarial/metaprompt UAT:** [issue #4](https://github.com/biobitworks/kordi-alignment/issues/4). This document PR supplies a proposed generation contract, not the teammate's model-tested skill implementation.
+- **Agent opt-in and human approval:** [issue #5](https://github.com/biobitworks/kordi-alignment/issues/5). Autonomous activation remains NOT_TESTED.
+
+No named teammate has been verified as accepting those tasks in GitHub; initial package files are not evidence of completed team PRs.
+
 ### Nine-cell alignment chart
 
 This is an **interpretive 3×3 chart for fictional scenarios or particular agent decisions**, not a score of a human being. In the scorer, the caller explicitly supplies `lawChaos` and `goodEvil` in `[-2,+2]`: positive means Lawful or Good, negative means Chaotic or Evil; axis magnitude below 0.5 means Neutral.
