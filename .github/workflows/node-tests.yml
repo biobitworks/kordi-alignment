@@ -1,0 +1,34 @@
+name: Alignment Compass offline tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax
+        run: |
+          node --check src/core.cjs
+          node --check extensions/alignment-compass.cjs
+          node --check test/adapter.test.cjs
+      - name: Offline unit and synthetic stress
+        run: npm test
+      - name: Ensure no credentials have been added
+        run: |
+          if git grep -n -E 'BEGIN (RSA|OPENSSH) PRIVATE KEY|gho_[A-Za-z0-9]{25,}|sk-[A-Za-z0-9]{24,}' -- ':!docs/*'; then
+            echo 'Sensitive credential pattern detected'
+            exit 1
+          fi
