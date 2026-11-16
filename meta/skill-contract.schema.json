@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/biobitworks/kordi-alignment/blob/main/meta/skill-contract.schema.json",
+  "title": "Kordi Alignment Compass skill metaprompt proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "skill_id", "owner_lane", "status", "description", "scope",
+    "activation", "score_source", "tool_name", "trusted_sources", "invariants",
+    "planned_files", "test_cases", "not_tested"
+  ],
+  "properties": {
+    "schema_version": { "const": "kordi-alignment.skill-proposal.v1" },
+    "skill_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,63}$" },
+    "owner_lane": { "const": "skill" },
+    "status": { "const": "PROPOSED" },
+    "description": { "type": "string", "minLength": 12 },
+    "scope": { "type": "array", "uniqueItems": true, "minItems": 1, "items": { "enum": ["fictional", "agent_decision"] } },
+    "activation": { "const": "explicit_user_request" },
+    "score_source": { "const": "human_supplied" },
+    "tool_name": { "const": "alignment_compass" },
+    "trusted_sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["repo", "ref"],
+        "properties": {
+          "repo": { "type": "string", "minLength": 5 },
+          "ref": { "type": "string", "minLength": 7 }
+        }
+      }
+    },
+    "invariants": { "type": "array", "minItems": 4, "items": { "type": "string", "minLength": 8 } },
+    "planned_files": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 5 } },
+    "test_cases": {
+      "type": "array", "minItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "expected_status", "execution"],
+        "properties": {
+          "name": { "type": "string", "minLength": 4 },
+          "expected_status": { "enum": ["UNKNOWN", "SCORED", "ERROR", "REFUSED"] },
+          "execution": { "enum": ["PROPOSED", "NOT_TESTED", "EXECUTED"] }
+        }
+      }
+    },
+    "not_tested": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 5 } }
+  }
+}

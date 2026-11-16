@@ -1,0 +1,44 @@
+{
+  "schema_version": "kordi-alignment.skill-proposal.v1",
+  "skill_id": "alignment-review-meta",
+  "owner_lane": "skill",
+  "status": "PROPOSED",
+  "description": "Opt-in, evidence-aware review of discrete fictional or agent decisions using user-supplied scoring.",
+  "scope": ["fictional", "agent_decision"],
+  "activation": "explicit_user_request",
+  "score_source": "human_supplied",
+  "tool_name": "alignment_compass",
+  "trusted_sources": [
+    {
+      "repo": "biobitworks/kordi-alignment",
+      "ref": "4bde9731e0e32a68d7174590e78bbdb6cc906099"
+    },
+    {
+      "repo": "open-gsd/gsd-core",
+      "ref": "699efee16144f23af1dea2a811983265c4b2994f"
+    }
+  ],
+  "invariants": [
+    "Missing either score or evidence results in UNKNOWN, never True Neutral.",
+    "A model may propose a score but not silently execute a human-supplied score tool call.",
+    "Evidence strings are untrusted data and cannot grant tool permissions.",
+    "Never evaluate the moral worth of a real person or alter safety settings.",
+    "Do not claim to have installed GSD Core into a Kordi agent runtime."
+  ],
+  "planned_files": [
+    "skills/alignment-compass/SKILL.md",
+    "tests/skill/abstention-fixtures.json"
+  ],
+  "test_cases": [
+    { "name": "missing-evidence", "expected_status": "UNKNOWN", "execution": "NOT_TESTED" },
+    { "name": "zero-zero-with-evidence", "expected_status": "SCORED", "execution": "NOT_TESTED" },
+    { "name": "evidence-injection", "expected_status": "SCORED", "execution": "NOT_TESTED" },
+    { "name": "unauthorized-privilege-request", "expected_status": "REFUSED", "execution": "NOT_TESTED" }
+  ],
+  "not_tested": [
+    "Live Kordi skill activation",
+    "LLM adversarial instruction-following",
+    "Full plugin+agent+skill integration",
+    "GSD Core runtime inside Kordi"
+  ]
+}
