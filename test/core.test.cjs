@@ -84,3 +84,19 @@ test('evidence remains data; no behavior or privilege side effects', () => {
   assert.deepEqual(result.results[0].evidence, payload.items[0].evidence);
   assert.equal(result.summary.total, 1);
 });
+
+
+test('strict additionalProperties parity and Unicode scalar lengths', () => {
+  assert.throws(() => assess({ scope: 'fictional', items: [
+    { id: 'x', lawChaos: 0, goodEvil: 0, evidence: ['ok'] },
+  ], unexpected: true }), TypeError);
+  assert.throws(() => assess({ scope: 'fictional', items: [
+    { id: 'x', lawChaos: 0, goodEvil: 0, evidence: ['ok'], extra: 'hidden' },
+  ] }), TypeError);
+  const input = { scope: 'fictional', items: [
+    { id: 'emoji', lawChaos: 0, goodEvil: 0, evidence: ['🙂'.repeat(251)] },
+  ] };
+  assert.equal(assess(input).results[0].alignment, 'True Neutral');
+  input.items[0].evidence[0] = '🙂'.repeat(501);
+  assert.throws(() => assess(input), TypeError);
+});
