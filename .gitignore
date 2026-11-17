@@ -8,3 +8,8 @@ coverage/
 *.pem
 *.key
 session-data/
+local-preview.log
+local-preview.pid
+browser-e2e.log
+.DS_Store
+.vercel/
