@@ -40,7 +40,7 @@ function normalizeItem(item, index) {
   }
   const evidence = item.evidence === undefined ? [] : item.evidence;
   if (!Array.isArray(evidence) || evidence.length > 5 ||
-      evidence.some(value => typeof value !== 'string' ||
+      Array.from(evidence).some(value => typeof value !== 'string' ||
         value.trim().length === 0 || Array.from(value).length > 500)) {
     throw new TypeError(`items[${index}].evidence must be at most 5 nonempty strings (500 chars each)`);
   }
@@ -66,7 +66,8 @@ function assess(input) {
     throw new TypeError(`items must contain 1-${LIMIT} entries`);
   }
   const ids = new Set();
-  const results = input.items.map((item, i) => {
+  // Array.from visits sparse holes so each entry is validated, never silently skipped.
+  const results = Array.from(input.items, (item, i) => {
     const row = normalizeItem(item, i);
     if (ids.has(row.id)) throw new TypeError(`Duplicate decision ID: ${row.id}`);
     ids.add(row.id);

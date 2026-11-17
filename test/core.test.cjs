@@ -100,3 +100,17 @@ test('strict additionalProperties parity and Unicode scalar lengths', () => {
   input.items[0].evidence[0] = '🙂'.repeat(501);
   assert.throws(() => assess(input), TypeError);
 });
+
+
+test('sparse evidence and decision arrays cannot bypass UNKNOWN or validation', () => {
+  assert.throws(
+    () => assess({ scope: 'agent_decision', items: [
+      { id: 'hole', lawChaos: 0, goodEvil: 0, evidence: new Array(1) },
+    ] }), TypeError);
+  assert.throws(
+    () => assess({ scope: 'agent_decision', items: new Array(1) }), TypeError);
+  // Explicit empty list still abstains instead of appearing Neutral.
+  assert.equal(assess({ scope: 'agent_decision', items: [
+    { id: 'empty', lawChaos: 0, goodEvil: 0, evidence: [] },
+  ] }).results[0].status, 'UNKNOWN');
+});
