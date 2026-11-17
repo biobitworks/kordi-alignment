@@ -25,7 +25,7 @@ Status: IMPLEMENTED in the Studio fallback branch; deployed/promotion status req
 - #7 team-review docs: open at initial verification, pending review.
 - #8 metaprompting design: open at initial verification, pending human owner review.
 - #9 static Compass preview: merged.
-- This release branch will have its own PR; publish its number and resulting commit only after GitHub actually creates them.
+- Release PR #10: https://github.com/biobitworks/kordi-alignment/pull/10 (created from commit 5cb00299ac93253b9923375c8dc3b77d49c434b5; merge state to be verified separately).
 
 ## Verification contract
 

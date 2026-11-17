@@ -36,7 +36,7 @@ try{
   prLinks:document.querySelectorAll('#release-evidence a[href*="/pull/"]').length,
   compass:!!document.querySelector('#assess')}));
  console.log('ROOT',JSON.stringify(main));
- check(main.quest&&main.prLinks===4&&main.compass,'homepage Quest CTA, PR #1/#7/#8/#9, original Compass');
+ check(main.quest&&main.prLinks===5&&main.compass,'homepage Quest CTA, PR #1/#7/#8/#9/#10, original Compass');
  await nav('/quest.html');
  let kit=await browserFn(()=>({
   prompts:['room-prompt','skill-text','tool-text','plugin-text','agent-text','install-text'].map(id=>document.getElementById(id)?.value.length||0),
