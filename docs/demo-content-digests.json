@@ -1,0 +1,19 @@
+{
+  "schema": "kordi-alignment-demo-content-digests-v1",
+  "type": "SHA-256 file identities, not a Merkle root or security guarantee",
+  "verified_at_utc": "2026-11-17T01:24:59.466468+00:00",
+  "files": {
+    "src/core.cjs": "e6ac07d85e76fd39810da51449f29d9757a29ac978c0faa8b36efb29ba32a17b",
+    "web/core.mjs": "b2ae5d7f46b971cd1b1566f7d49242a95a4d8e077e1399085d63e865e9ceb373",
+    "src/room-quest.cjs": "c784b78d471925b2b3ceeea44e8a62280e88369d9deba55f3f2a6d14a869b05f",
+    "web/room-quest.mjs": "fc8c49c8ca4db11fa6bbf2b02bb24b01ec310fdb0cf34bc6ca96d5ec95a7c621",
+    "web/quest-kit.mjs": "aa2e8c5567f5d64213f1eb871f3152e26a4a99f4c776119b12cf8e5a5b24ffa7",
+    "web/quest.html": "4fefb4e64dae5c3052bc544a2c3e7ebba34f603fce2d18aa5afba9d78654c264",
+    "web/quest.js": "e9b1c675009910bc347e8af0e510466018048ca8ef57fefd36924c34aa635870",
+    "web/index.html": "e0e471607f0e84f8184d3beba3c06041387ec426533c085260aef692fb14c455",
+    "web/vercel.json": "5ccaef543ae1d496e597237ffa7ca2dbcba8367ca865437543016d1408af89bf",
+    "skills/room-quest/SKILL.md": "919018763ff75012b274b4732db227465538d266ef06bea656ac019bf061edf7",
+    "prompts/room-quest-agent.md": "c3fa4ce03f87c06e8d671b3ebcceac2b808f82de5c751a7ef4ffb4f11cd15f72",
+    "extensions/room-quest.cjs": "ab6e7d7dcd87b380e252532996553f4ff5fd77ae0167bcd07d9ad7e4d69d47c3"
+  }
+}
