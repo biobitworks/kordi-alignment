@@ -49,3 +49,9 @@ NOT_TESTED: signed-in Kordi and magicPRObox R002 deployment after Pro disconnect
 FAILURES: Pro dropped remote connection during PR assertion investigation
 UNRESOLVED: PR approval gates, public deployed build E2E, future host portability
 NEXT_ACTION: commit, run CI, publish Vercel, independently test public URL
+
+## Successor browser-copy verification
+
+- A stricter headless macOS browser test attempted physical clipboard readback for all four copy buttons. Observed four FALSE comparisons; OS clipboard readback in headless automation is NEGATIVE, not proof that manual desktop copy fails. Retain this predecessor outcome.
+- Successor E2E instruments the clipboard `writeText` API in the page and verifies the exact four source strings passed through click handlers. This tests payload/handler wiring, not actual OS clipboard paste.
+- Page fallback now selects the text and attempts `document.execCommand('copy')`; when blocked the UI instructs manual Command+C/Ctrl+C. Manual physical paste from a real browser remains NOT_TESTED.

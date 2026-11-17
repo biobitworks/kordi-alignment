@@ -30,7 +30,7 @@ module.exports=function register(kordi){
   catch(err){return {is_error:true,content:[{type:'text',text:'Research Quest error: '+err.message}]}}
  }});
  kordi.registerCommand('quest',{description:'Show how to play a 12-round opt-in Research Alignment Quest.',handler:async()=>({message:
- 'Play at https://kordi-alignment-compass.vercel.app/ or paste the room host prompt from the Kordi Kit tab. '+
+ 'Play at https://kordi-alignment-compass.vercel.app/quest or paste the room host prompt from the Kordi Kit tab. '+
  'Reply to 12 original scenario prompts with choices 1-4; an agent with alignment_quest_score installed can produce the card. '+
  'You decide whether to paste it into the Kordi room; use /quest help for this message.'})});
 };

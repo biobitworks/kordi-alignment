@@ -31,6 +31,13 @@ try{
  await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject});
  ws.onmessage=e=>{let r=JSON.parse(e.data);let p=pending.get(r.id);if(!p)return;pending.delete(r.id);if(r.error)p.reject(Error(JSON.stringify(r.error)));else p.resolve(r.result)};
  await request('Page.enable');await request('Runtime.enable');
+ if(process.env.VERCEL_OIDC_TOKEN){
+  await request('Network.enable');
+  await request('Network.setExtraHTTPHeaders',{headers:{'x-vercel-trusted-oidc-idp-token':process.env.VERCEL_OIDC_TOKEN}});
+  console.log('PREVIEW_AUTH','development token used (value not logged)');
+ }
+ try{await request('Browser.grantPermissions',{origin:new URL(origin).origin,permissions:['clipboardReadWrite','clipboardSanitizedWrite']});}
+ catch(e){console.log('CLIPBOARD_PERMISSION_NOT_GRANTED',e.message);}
  await nav('/');
  let main=await browserFn(()=>({title:document.title,quest:!!document.querySelector('a[href="./quest"]'),
   prLinks:document.querySelectorAll('#release-evidence a[href*="/pull/"]').length,
@@ -83,12 +90,27 @@ try{
  console.log('MATCH',JSON.stringify(match));
  check(match.allowed&&match.pairs>0,'authorized synthetic pair scoring');
  // Verify each of four copy buttons exists and is enabled without account credentials
- const copies=await browserFn(()=>['skill-text','tool-text','plugin-text','agent-text'].map(id=>{
-  const button=document.querySelector('[data-copy="'+id+'"]');
-  button.click();
-  return button.textContent.includes('Copy');
- }));
- check(copies.every(Boolean),'four copy prompts clickable');
+ const copies=await browserFn(async()=>{
+  const outcomes=[];
+  const old=Object.getOwnPropertyDescriptor(navigator,'clipboard');
+  let captured=null;
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{captured=value}}});
+  try{
+   for(const id of ['skill-text','tool-text','plugin-text','agent-text']){
+    captured=null;
+    const button=document.querySelector('[data-copy="'+id+'"]');
+    button.click();
+    await new Promise(r=>setTimeout(r,100));
+    outcomes.push(captured===document.getElementById(id).value);
+   }
+  }finally{
+   if(old)Object.defineProperty(navigator,'clipboard',old);
+   else delete navigator.clipboard;
+  }
+  return outcomes;
+ });
+ console.log('COPY_HANDLER_PAYLOAD_EQUALITY',JSON.stringify(copies));
+ check(copies.length===4&&copies.every(Boolean),'four copy handlers send exact prompt source bytes');
  const ss=await request('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
  if(process.env.SCREENSHOT_OUTPUT){writeFileSync(process.env.SCREENSHOT_OUTPUT,Buffer.from(ss.data,'base64'));console.log('SCREENSHOT',process.env.SCREENSHOT_OUTPUT);}
 }catch(err){errors.push(String(err));console.error('ERROR',err.stack||err)}

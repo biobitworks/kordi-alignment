@@ -26,7 +26,7 @@ function finish(){
 }
 async function copyText(text,sourceId){
  try{await navigator.clipboard.writeText(text);toast('Copied. Paste only where you choose.')}
- catch{const el=$(sourceId);el.focus();el.select();toast('Select and copy the highlighted text manually.')}
+ catch{const el=$(sourceId);el.focus();el.select();let copied=false;try{copied=!!document.execCommand('copy')}catch{}toast(copied?'Copied via selected-text fallback.':'Text selected; press Ctrl+C or Command+C to copy.')}
 }
 function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;setTimeout(()=>el.hidden=true,2400)}
 function match(){
@@ -49,12 +49,12 @@ function gameHostPrompt(){
  for(const [i,q] of Quest.QUESTIONS.entries()){
   rules.push((i+1)+'. '+q[0]);q[1].forEach(([a],idx)=>rules.push('   '+(idx+1)+') '+a));
  }
- rules.push('Official web questionnaire: https://kordi-alignment-compass.vercel.app/');
+ rules.push('Official web questionnaire: https://kordi-alignment-compass.vercel.app/quest');
  return rules.join('\n');
 }
 function fillKit(){
  $('room-prompt').value=gameHostPrompt();
- $('invite-prompt').value='Optional research-team game: https://kordi-alignment-compass.vercel.app/ . Play the 12 scenarios or opt into the room game with @matchmaker. Sharing your result is your choice; not used for hiring or membership.';
+ $('invite-prompt').value='Optional research-team game: https://kordi-alignment-compass.vercel.app/quest . Play the 12 scenarios or opt into the room game with @matchmaker. Sharing your result is your choice; not used for hiring or membership.';
  $('skill-text').value=SKILL;
  $('agent-text').value=AGENT;
  $('plugin-text').value=PLUGIN;
