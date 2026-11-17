@@ -23,7 +23,7 @@ Identify user-requested **specific decision or fictional scenario**, task contex
 
 Produce a machine-readable proposal matching `meta/skill-contract.schema.json`, with:
 
-- schema_version, skill_id, owner_lane, scope, intended_activation;
+- schema_version, skill_id, owner_lane, status, description, scope, activation: explicit_user_request;
 - exact tool name, score_source, how to invoke and abstain, trust boundaries;
 - file touch set, tests, adversarial negative cases, dependency order;
 - explicit **PROPOSED**, **NOT_TESTED** and blocked states.
