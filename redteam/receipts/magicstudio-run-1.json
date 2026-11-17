@@ -1,0 +1,143 @@
+{
+  "duration_ms": 17702,
+  "execution": "EXECUTED",
+  "git_working_head": "85707837af7b18f98b2d7d33891c5b95b9d42c34",
+  "label": "magicSTUDIO",
+  "lanes": {
+    "agent": {
+      "checks": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "redteam/tests/test_teammate_contracts.py",
+            "-k",
+            "agent"
+          ],
+          "elapsed_ms": 346,
+          "exit_code": 0,
+          "name": "python-agent-contract",
+          "output_tail": "..                                                                       [100%]\n2 passed, 5 deselected in 0.01s\n",
+          "status": "PASS"
+        }
+      ],
+      "lane": "agent",
+      "status": "PASS"
+    },
+    "plugin": {
+      "checks": [
+        {
+          "argv": [
+            "node",
+            "--test",
+            "test/adapter.test.cjs"
+          ],
+          "elapsed_ms": 268,
+          "exit_code": 0,
+          "name": "node-adapter",
+          "output_tail": "✔ plugin registers exactly one Kordi tool and one slash command (0.499875ms)\n✔ Kordi tool schema supports missing evidence or scores for UNKNOWN (0.656167ms)\n✔ tool and slash command classify the same explicit synthetic input (0.252375ms)\n✔ invalid scope or parse failures cannot grant extra tool privileges (0.65075ms)\n✔ package manifest exposes extension, skill and prompt discovery roots (0.319333ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 138.510666\n",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "redteam/tests/test_teammate_contracts.py",
+            "-k",
+            "plugin"
+          ],
+          "elapsed_ms": 289,
+          "exit_code": 0,
+          "name": "python-plugin-contract",
+          "output_tail": "..                                                                       [100%]\n2 passed, 5 deselected in 0.01s\n",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "npm",
+            "run",
+            "test:integration"
+          ],
+          "elapsed_ms": 548,
+          "exit_code": 0,
+          "name": "plugin-host-json-rpc",
+          "output_tail": "npm notice run @biobitworks/kordi-alignment@0.1.0 test:integration\nnpm notice run node --test test/host.test.cjs\n✔ real Kordi plugin host registers tool and command, runs RPC and rejects invalid data (118.190541ms)\n✔ tool schema permits omitted scores and evidence for UNKNOWN abstention (1.13825ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 242.860959\n",
+          "status": "PASS"
+        }
+      ],
+      "lane": "plugin",
+      "status": "PASS"
+    },
+    "skill": {
+      "checks": [
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "redteam/tests/test_teammate_contracts.py",
+            "-k",
+            "skill"
+          ],
+          "elapsed_ms": 350,
+          "exit_code": 0,
+          "name": "python-skill-contract",
+          "output_tail": "..                                                                       [100%]\n2 passed, 5 deselected in 0.01s\n",
+          "status": "PASS"
+        }
+      ],
+      "lane": "skill",
+      "status": "PASS"
+    },
+    "tool": {
+      "checks": [
+        {
+          "argv": [
+            "node",
+            "--test",
+            "test/core.test.cjs",
+            "test/stress.test.cjs"
+          ],
+          "elapsed_ms": 309,
+          "exit_code": 0,
+          "name": "node-core",
+          "output_tail": "✔ all nine alignments and exact neutral midpoint (0.815042ms)\n✔ threshold boundaries are inclusive and preserve magnitude (0.126708ms)\n✔ missing evidence and scores produce UNKNOWN, not neutral (0.085042ms)\n✔ summary counts are deterministic and sum to total (0.602417ms)\n✔ strict validation rejects invalid, duplicate, or oversized inputs (0.366333ms)\n✔ evidence remains data; no behavior or privilege side effects (0.088167ms)\n✔ strict additionalProperties parity and Unicode scalar lengths (0.139625ms)\n✔ 20,000 deterministic synthetic decisions: bounds, no mutation, no unexpected UNKNOWN (44.917291ms)\nℹ tests 8\nℹ suites 0\nℹ pass 8\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 179.249042\n",
+          "status": "PASS"
+        },
+        {
+          "argv": [
+            "python",
+            "-m",
+            "pytest",
+            "-q",
+            "redteam/tests/test_tool_differential.py"
+          ],
+          "elapsed_ms": 17383,
+          "exit_code": 0,
+          "name": "python-differential",
+          "output_tail": "...........................                                              [100%]\n27 passed in 17.08s\n",
+          "status": "PASS"
+        }
+      ],
+      "lane": "tool",
+      "status": "PASS"
+    }
+  },
+  "manifest_algorithm": "SHA-256 of canonical sorted path/byte manifest, not Merkle",
+  "manifest_sha256": "dd4f53cfbedfed822b1b0c051bfab0dd06199bd88364d8c64886be013a7ac23d",
+  "not_tested": [
+    "Kordi cloud and signed-in production app",
+    "LLM response to malicious evidence",
+    "ChatGPT-to-Kordi connector",
+    "Actual teammate skill/agent activation",
+    "403 root-cause remediation"
+  ],
+  "overall": "PASS",
+  "schema": "kordi-alignment.redteam-receipt.v1",
+  "scope": "offline synthetic scoring, adapter, and static instruction checks"
+}

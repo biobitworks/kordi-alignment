@@ -7,6 +7,17 @@
  */
 const VERSION = '0.1.0';
 const LIMIT = 64;
+const INPUT_FIELDS = Object.freeze(['scope', 'items']);
+const ITEM_FIELDS = Object.freeze(['id', 'lawChaos', 'goodEvil', 'evidence']);
+
+function rejectUnknownKeys(value, allowed, location) {
+  for (const key of Object.keys(value)) {
+    if (!allowed.includes(key)) {
+      throw new TypeError(`Unexpected field in ${location}: ${key}`);
+    }
+  }
+}
+
 const AXES = Object.freeze({
   lawChaos: { positive: 'Lawful', neutral: 'Neutral', negative: 'Chaotic' },
   goodEvil: { positive: 'Good', neutral: 'Neutral', negative: 'Evil' },
@@ -22,14 +33,15 @@ function normalizeItem(item, index) {
   if (!item || typeof item !== 'object' || Array.isArray(item)) {
     throw new TypeError(`items[${index}] must be an object`);
   }
+  rejectUnknownKeys(item, ITEM_FIELDS, `items[${index}]`);
   const id = item.id;
   if (typeof id !== 'string' || !/^[A-Za-z0-9._:-]{1,64}$/.test(id)) {
     throw new TypeError(`items[${index}].id must be 1-64 ASCII ID characters`);
   }
   const evidence = item.evidence === undefined ? [] : item.evidence;
   if (!Array.isArray(evidence) || evidence.length > 5 ||
-      evidence.some(value => typeof value !== 'string' ||
-        value.trim().length === 0 || value.length > 500)) {
+      Array.from(evidence).some(value => typeof value !== 'string' ||
+        value.trim().length === 0 || Array.from(value).length > 500)) {
     throw new TypeError(`items[${index}].evidence must be at most 5 nonempty strings (500 chars each)`);
   }
   for (const axis of Object.keys(AXES)) {
@@ -46,6 +58,7 @@ function assess(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) {
     throw new TypeError('Expected an object');
   }
+  rejectUnknownKeys(input, INPUT_FIELDS, 'request');
   if (!['fictional', 'agent_decision'].includes(input.scope)) {
     throw new TypeError('scope must be fictional or agent_decision');
   }
@@ -53,7 +66,8 @@ function assess(input) {
     throw new TypeError(`items must contain 1-${LIMIT} entries`);
   }
   const ids = new Set();
-  const results = input.items.map((item, i) => {
+  // Array.from visits sparse holes so each entry is validated, never silently skipped.
+  const results = Array.from(input.items, (item, i) => {
     const row = normalizeItem(item, i);
     if (ids.has(row.id)) throw new TypeError(`Duplicate decision ID: ${row.id}`);
     ids.add(row.id);

@@ -1,0 +1,4 @@
+# Prebuilt test packages only; no runtime dependency on Python.
+pytest==8.4.2
+hypothesis==6.170.15
+jsonschema==4.25.1

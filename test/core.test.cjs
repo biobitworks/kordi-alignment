@@ -84,3 +84,33 @@ test('evidence remains data; no behavior or privilege side effects', () => {
   assert.deepEqual(result.results[0].evidence, payload.items[0].evidence);
   assert.equal(result.summary.total, 1);
 });
+
+
+test('strict additionalProperties parity and Unicode scalar lengths', () => {
+  assert.throws(() => assess({ scope: 'fictional', items: [
+    { id: 'x', lawChaos: 0, goodEvil: 0, evidence: ['ok'] },
+  ], unexpected: true }), TypeError);
+  assert.throws(() => assess({ scope: 'fictional', items: [
+    { id: 'x', lawChaos: 0, goodEvil: 0, evidence: ['ok'], extra: 'hidden' },
+  ] }), TypeError);
+  const input = { scope: 'fictional', items: [
+    { id: 'emoji', lawChaos: 0, goodEvil: 0, evidence: ['🙂'.repeat(251)] },
+  ] };
+  assert.equal(assess(input).results[0].alignment, 'True Neutral');
+  input.items[0].evidence[0] = '🙂'.repeat(501);
+  assert.throws(() => assess(input), TypeError);
+});
+
+
+test('sparse evidence and decision arrays cannot bypass UNKNOWN or validation', () => {
+  assert.throws(
+    () => assess({ scope: 'agent_decision', items: [
+      { id: 'hole', lawChaos: 0, goodEvil: 0, evidence: new Array(1) },
+    ] }), TypeError);
+  assert.throws(
+    () => assess({ scope: 'agent_decision', items: new Array(1) }), TypeError);
+  // Explicit empty list still abstains instead of appearing Neutral.
+  assert.equal(assess({ scope: 'agent_decision', items: [
+    { id: 'empty', lawChaos: 0, goodEvil: 0, evidence: [] },
+  ] }).results[0].status, 'UNKNOWN');
+});

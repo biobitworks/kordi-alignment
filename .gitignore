@@ -8,3 +8,9 @@ coverage/
 *.pem
 *.key
 session-data/
+
+.venv-redteam/
+.hypothesis/
+.pytest_cache/
+__pycache__/
+*.pyc

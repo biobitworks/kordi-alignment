@@ -1,0 +1,55 @@
+name: Alignment Compass Python red-team
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "redteam/**"
+      - "test/**"
+      - "extensions/**"
+      - "skills/**"
+      - "agents/**"
+      - "prompts/**"
+      - ".github/workflows/redteam-tool.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "redteam/**"
+      - "test/**"
+      - "extensions/**"
+      - "skills/**"
+      - "agents/**"
+      - "prompts/**"
+      - ".github/workflows/redteam-tool.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-redteam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: astral-sh/setup-uv@v6
+      - name: Offline Python test environment (hash-locked packages)
+        run: |
+          uv python install 3.12
+          uv venv --python 3.12 .venv-redteam
+          uv pip sync --python .venv-redteam/bin/python redteam/requirements.lock
+      - name: Node tool suite
+        run: npm test
+      - name: Python tool red-team and teammate static contracts
+        run: .venv-redteam/bin/python -m pytest redteam/tests -q
+      - name: Parallel lane checks (live Kordi intentionally not connected)
+        run: .venv-redteam/bin/python redteam/run_lanes.py --label CI --output /tmp/kordi-redteam-ci.json
+      - name: Upload CI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kordi-alignment-redteam-ci
+          path: /tmp/kordi-redteam-ci.json
+          if-no-files-found: ignore
