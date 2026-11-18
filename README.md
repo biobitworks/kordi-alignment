@@ -88,4 +88,6 @@ Review the [four-component PR plan](docs/pr-plan.md) before exporting to upstrea
 
 ## Licensing and attribution
 
+The repository's explicit MIT grant and its independently reproducible license evidence are documented in [LICENSING.md](LICENSING.md) and the searchable [LICENSE-PROVENANCE.json](LICENSE-PROVENANCE.json). A private portfolio-wide Merkle inventory remains local and is not included in this public repository.
+
 MIT licensed. Independent implementation inspired by the [D&D alignment overview](https://en.wikipedia.org/wiki/Alignment_(Dungeons_%26_Dragons)) and [EasyDamus examples](https://easydamus.com/alignment.html); third-party text or images are not copied. Not affiliated with or endorsed by Wizards of the Coast.

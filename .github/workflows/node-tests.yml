@@ -26,6 +26,10 @@ jobs:
           node --check test/adapter.test.cjs
       - name: Offline unit and synthetic stress
         run: npm test
+      - name: Verify exact-byte license checkpoint
+        run: |
+          npm run license:verify
+          npm run test:license
       - name: Ensure no credentials have been added
         run: |
           if git grep -n -E 'BEGIN (RSA|OPENSSH) PRIVATE KEY|gho_[A-Za-z0-9]{25,}|sk-[A-Za-z0-9]{24,}' -- ':!docs/*'; then

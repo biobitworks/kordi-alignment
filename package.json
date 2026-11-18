@@ -12,14 +12,22 @@
     "node": ">=22"
   },
   "kordi": {
-    "extensions": ["./extensions"],
-    "skills": ["./skills"],
-    "prompts": ["./prompts"]
+    "extensions": [
+      "./extensions"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
   },
   "scripts": {
     "test": "node --test test/core.test.cjs test/adapter.test.cjs test/stress.test.cjs",
     "test:stress": "node --test test/stress.test.cjs",
     "test:integration": "node --test test/host.test.cjs",
-    "test:all": "node --test test/*.test.cjs"
+    "test:all": "node --test test/*.test.cjs",
+    "license:verify": "node scripts/license-proof.cjs --verify",
+    "test:license": "node --test test/license-proof.test.cjs"
   }
 }
