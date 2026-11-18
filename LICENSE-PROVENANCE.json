@@ -1,0 +1,52 @@
+{
+  "schema": "biobitworks-searchable-license-evidence-v1",
+  "status": "EXECUTED_AND_RECOMPUTABLE",
+  "repository": "biobitworks/kordi-alignment",
+  "predecessor_main_commit_sha": "1b59e71b8d699cc57e5d90b540c3f85aa6c1b6c9",
+  "license_expression_declared": "MIT",
+  "license_copyright_exact": "Copyright (c) 2026 BioBitWorks contributors",
+  "license_file_path": "LICENSE",
+  "license_search_key": "license:v1:biobitworks/kordi-alignment:LICENSE@sha256:af2ecda1ba25594231d7a2a86c79b03b18ba966d07d9cf44aef796b94a006c4b",
+  "license_file_sha256": "af2ecda1ba25594231d7a2a86c79b03b18ba966d07d9cf44aef796b94a006c4b",
+  "license_root_sha256": "a9ee3f531f287b7ea70743391799c250dcedbd5234c612b547f7d8dea12dddea",
+  "merkle_algorithm": "SHA-256",
+  "merkle_arity": 2,
+  "source_record_encoding": "newline-terminated UTF-8 compact sorted-key JSON",
+  "leaf_preimage": "ASCII LICENSE-EVIDENCE-LEAF-v1, NUL byte, source_record_encoding",
+  "node_preimage": "ASCII LICENSE-EVIDENCE-NODE-v1, NUL byte, 32-byte left hash, 32-byte right hash",
+  "source_records": [
+    {
+      "path": "LICENSE",
+      "size_bytes": 1081,
+      "sha256": "af2ecda1ba25594231d7a2a86c79b03b18ba966d07d9cf44aef796b94a006c4b",
+      "git_blob_sha1": "a8b4b6b47deb80ed10a39fc01106cdba415fcd6a",
+      "leaf_sha256": "c3fd8db40c824811eccf42e6aa2fa2f551418cc8c5c9150bbc5a4b17bf59c716",
+      "inclusion_proof": [
+        {
+          "side": "right",
+          "neighboring_leaf_sha256": "554e442756f702ba2f8674d4d63e753975d8e85d73cd544bc83faa861db8fcfd"
+        }
+      ]
+    },
+    {
+      "path": "package.json",
+      "size_bytes": 906,
+      "sha256": "d225899e282b14db3979eb9bf836d78869d162596bef65f1bc8e22472c320996",
+      "git_blob_sha1": "045ce6c2f4495cc7f26fc86981d46db943a13f61",
+      "leaf_sha256": "554e442756f702ba2f8674d4d63e753975d8e85d73cd544bc83faa861db8fcfd",
+      "inclusion_proof": [
+        {
+          "side": "left",
+          "neighboring_leaf_sha256": "c3fd8db40c824811eccf42e6aa2fa2f551418cc8c5c9150bbc5a4b17bf59c716"
+        }
+      ]
+    }
+  ],
+  "portfolio_private_checkpoint": "LOCAL_ONLY_NOT_PUBLISHED",
+  "contents_not_explicitly_covered_by_this_license": "NOT_CLASSIFIED",
+  "signing_public_key_id": "NOT_COMPUTED",
+  "signature_verified": "NOT_TESTED",
+  "third_party_license_clearance": "NOT_TESTED",
+  "legal_conclusion": "DECLARATIONS_CONSISTENT__OWNERSHIP_AND_NESTED_LICENSES_NOT_TESTED",
+  "caveat": "Hashes prove identity and inclusion of the observed declarations, not copyright title, license compatibility, or legal compliance"
+}
